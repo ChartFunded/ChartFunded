@@ -1,12 +1,34 @@
 (() => {
   "use strict";
-  const C = window.CF_CONFIG;
   const $ = (id) => document.getElementById(id);
+  const C = window.CF_CONFIG;
+
+  // Setup check — kuch missing ho to page pe saaf error dikhe
+  const setupErr = (msg) => {
+    const p = $("errX");
+    if (p) p.textContent = "Setup error: " + msg;
+    if ($("saveX")) $("saveX").disabled = true;
+  };
+  if (!C || typeof C !== "object") {
+    setupErr("js/config.js didn't load. Check the file path and syntax.");
+    return;
+  }
+  const missing = ["SUPABASE_URL", "SUPABASE_ANON_KEY", "X_HANDLE", "TELEGRAM_URL", "DISCORD_URL"]
+    .filter((k) => typeof C[k] !== "string" || !C[k].trim() || C[k].includes("YOUR"));
+  if (missing.length) {
+    setupErr("fill " + missing.join(", ") + " in js/config.js.");
+    return;
+  }
+  if (!window.supabase || typeof window.supabase.createClient !== "function") {
+    setupErr("Supabase library didn't load. Refresh the page.");
+    return;
+  }
 
   // Official links — sirf https allow
   const safe = (u) => (typeof u === "string" && u.startsWith("https://") ? u : "#");
-  const xProfile = "https://x.com/" + encodeURIComponent(C.X_HANDLE);
-  const xFollow = "https://x.com/intent/follow?screen_name=" + encodeURIComponent(C.X_HANDLE);
+  const handle = C.X_HANDLE.trim().replace(/^@/, "");
+  const xProfile = "https://x.com/" + encodeURIComponent(handle);
+  const xFollow = "https://x.com/intent/follow?screen_name=" + encodeURIComponent(handle);
   ["topX", "footX"].forEach((id) => ($(id).href = xProfile));
   $("linkX").href = xFollow;
   $("linkTg").href = $("footTg").href = safe(C.TELEGRAM_URL);

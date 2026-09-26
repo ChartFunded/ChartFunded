@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Chart Funded · Whitelist admin</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="" width="40" height="40">
+      <span>Chart Funded admin</span>
+    </a>
+    <button type="button" class="btn ghost" id="logoutBtn" hidden>Log out</button>
+  </header>
+
+  <div class="admin-wrap">
+    <form class="panel login-box" id="loginView" novalidate>
+      <h1>Admin login</h1>
+      <div class="field">
+        <label for="email" class="sr">Email</label>
+        <input id="email" type="email" placeholder="Email" autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="password" class="sr">Password</label>
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn primary" id="loginBtn">Log in</button>
+      <p class="err" id="loginErr" role="alert"></p>
+    </form>
+
+    <section id="panelView" hidden>
+      <dl class="stats">
+        <div><dt>Total</dt><dd id="stTotal">0</dd></div>
+        <div><dt>Pending</dt><dd id="stPending">0</dd></div>
+        <div><dt>Approved</dt><dd id="stApproved">0</dd></div>
+        <div><dt>Rejected</dt><dd id="stRejected">0</dd></div>
+      </dl>
+
+      <div class="toolbar">
+        <div class="field">
+          <label for="search" class="sr">Search</label>
+          <input id="search" placeholder="Search handle or wallet" spellcheck="false">
+        </div>
+        <label for="filter" class="sr">Status</label>
+        <select id="filter">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <button type="button" class="btn ghost" id="reloadBtn">Reload</button>
+        <button type="button" class="btn" id="csvBtn">Export CSV</button>
+      </div>
+      <p class="err" id="panelErr" role="alert"></p>
+
+      <div class="panel table-scroll">
+        <table>
+          <thead>
+            <tr><th>#</th><th>X</th><th>Telegram</th><th>Discord</th><th>Wallet</th><th>Joined</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

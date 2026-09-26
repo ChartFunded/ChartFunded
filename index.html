@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Chart Funded · Genesis NFT whitelist</title>
+  <meta name="description" content="Chart Funded is taking prop trading to Web3. Join the whitelist for the Genesis NFT.">
+  <meta name="theme-color" content="#00153A">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="" width="40" height="40">
+      <span>Chart Funded</span>
+    </a>
+    <a class="top-link" id="topX" href="#" target="_blank" rel="noopener noreferrer">@Chartfunded on X</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Prop trading is going on‑chain.</h1>
+        <p class="lede">Chart Funded gives skilled traders real MT5 capital under rules that fit on one page. Now we're starting a new journey on Web3 with the Chart Funded Genesis NFT.</p>
+      </div>
+
+      <form class="pass" id="wlForm" novalidate autocomplete="off" aria-labelledby="passTitle">
+        <div class="pass-head">
+          <img src="assets/logo.png" alt="" width="44" height="44">
+          <div class="pass-id">
+            <p class="pass-title" id="passTitle">Genesis whitelist pass</p>
+            <p class="pass-holder" id="passHolder">Holder not set</p>
+          </div>
+          <p class="pass-count" id="passCount" aria-live="polite">0/5</p>
+        </div>
+        <div class="meter" aria-hidden="true"><span id="meterFill"></span></div>
+
+        <ol class="steps" id="steps">
+          <li class="step is-active" id="s1">
+            <fieldset id="f1">
+              <legend>Add your X handle</legend>
+              <p class="hint">Start here. We use it to check your follow.</p>
+              <div class="field">
+                <label for="xHandle" class="sr">X handle</label>
+                <span class="prefix" aria-hidden="true">@</span>
+                <input id="xHandle" maxlength="16" placeholder="yourhandle" spellcheck="false" autocapitalize="off">
+                <button type="button" class="btn" id="saveX">Save</button>
+              </div>
+              <p class="err" id="errX" role="alert"></p>
+            </fieldset>
+          </li>
+
+          <li class="step" id="s2">
+            <fieldset id="f2" disabled>
+              <legend>Follow @Chartfunded on X</legend>
+              <div class="actions">
+                <a class="btn ghost" id="linkX" href="#" target="_blank" rel="noopener noreferrer">Open X</a>
+                <button type="button" class="btn" id="doneX" disabled>I followed</button>
+              </div>
+            </fieldset>
+          </li>
+
+          <li class="step" id="s3">
+            <fieldset id="f3" disabled>
+              <legend>Join our Telegram</legend>
+              <div class="actions">
+                <a class="btn ghost" id="linkTg" href="#" target="_blank" rel="noopener noreferrer">Open Telegram</a>
+              </div>
+              <div class="field">
+                <label for="tgUser" class="sr">Telegram username</label>
+                <span class="prefix" aria-hidden="true">@</span>
+                <input id="tgUser" maxlength="33" placeholder="telegram username" spellcheck="false" autocapitalize="off">
+                <button type="button" class="btn" id="doneTg" disabled>Done</button>
+              </div>
+              <p class="err" id="errTg" role="alert"></p>
+            </fieldset>
+          </li>
+
+          <li class="step" id="s4">
+            <fieldset id="f4" disabled>
+              <legend>Join our Discord</legend>
+              <div class="actions">
+                <a class="btn ghost" id="linkDc" href="#" target="_blank" rel="noopener noreferrer">Open Discord</a>
+              </div>
+              <div class="field">
+                <label for="dcUser" class="sr">Discord username</label>
+                <input id="dcUser" maxlength="32" placeholder="discord username" spellcheck="false" autocapitalize="off">
+                <button type="button" class="btn" id="doneDc" disabled>Done</button>
+              </div>
+              <p class="err" id="errDc" role="alert"></p>
+            </fieldset>
+          </li>
+
+          <li class="step" id="s5">
+            <fieldset id="f5" disabled>
+              <legend>Submit your wallet</legend>
+              <p class="hint">EVM address starting with 0x. Paste it, don't type it.</p>
+              <div class="field">
+                <label for="wallet" class="sr">Wallet address</label>
+                <input id="wallet" maxlength="42" placeholder="0x…" spellcheck="false" autocapitalize="off">
+              </div>
+              <label class="check">
+                <input type="checkbox" id="ownWallet">
+                <span>This is my own wallet, not an exchange deposit address.</span>
+              </label>
+              <button type="submit" class="btn primary" id="submitBtn" disabled>Join whitelist</button>
+              <p class="err" id="errW" role="alert"></p>
+            </fieldset>
+          </li>
+        </ol>
+
+        <div class="hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input id="company" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="done-state" id="doneState" hidden tabindex="-1">
+          <h2>You're on the list.</h2>
+          <p>We'll check your follows and joins before mint. The mint date is announced on @Chartfunded first.</p>
+        </div>
+      </form>
+
+      <dl class="facts">
+        <div><dt>$10</dt><dd>Genesis NFT mint price</dd></div>
+        <div><dt>Whitelist first</dt><dd>Whitelisted wallets mint before anyone else</dd></div>
+        <div><dt>No wallet connect</dt><dd>You only paste an address. We never ask you to sign.</dd></div>
+      </dl>
+    </section>
+
+    <section class="block">
+      <h2>What Chart Funded is</h2>
+      <dl class="plain">
+        <div><dt>Real MT5 accounts</dt><dd>Verified traders trade live capital on MT5. Account size is assigned per trader.</dd></div>
+        <div><dt>No hidden rules</dt><dd>Max drawdown, daily drawdown and per-trade risk are written on one page. That's every rule there is.</dd></div>
+        <div><dt>Payouts you can check</dt><dd>Every payout certificate has a public link anyone can use to confirm it's real.</dd></div>
+      </dl>
+    </section>
+
+    <section class="block" id="genesis">
+      <h2>About the Genesis NFT</h2>
+      <dl class="plain">
+        <div><dt>Price</dt><dd>$10 per NFT.</dd></div>
+        <div><dt>Who mints first</dt><dd>Wallets on this whitelist, after we confirm the tasks.</dd></div>
+        <div><dt>Chain, supply and date</dt><dd>Announced on @Chartfunded before mint.</dd></div>
+        <div><dt>Holder benefits</dt><dd>Published in full, in writing, before mint opens.</dd></div>
+      </dl>
+    </section>
+
+    <section class="block safety">
+      <h2>Stay safe</h2>
+      <ul>
+        <li>We never DM you first on X, Telegram or Discord.</li>
+        <li>We never ask for your seed phrase or private key.</li>
+        <li>This page never asks you to connect or sign with your wallet.</li>
+        <li>Mint links are posted only on @Chartfunded and our official channels.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <nav aria-label="Social links">
+      <a id="footX" href="#" target="_blank" rel="noopener noreferrer">X</a>
+      <a id="footTg" href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <a id="footDc" href="#" target="_blank" rel="noopener noreferrer">Discord</a>
+    </nav>
+    <p>© 2026 Chart Funded</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/whitelist.js"></script>
+</body>
+</html>

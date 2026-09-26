@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Chart Funded · Genesis NFT whitelist</title>
-  <meta name="description" content="Chart Funded is taking prop trading to Web3. Join the whitelist for the Genesis NFT.">
+  <title>Chart Funded · Prop trading goes on-chain</title>
+  <meta name="description" content="Chart Funded gives verified traders real MT5 capital with rules on one page. Join the Genesis NFT whitelist.">
   <meta name="theme-color" content="#00153A">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,19 +13,104 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="top">
+  <div class="glow" aria-hidden="true"></div>
+
+  <header class="nav">
     <a class="brand" href="/">
       <img src="assets/logo.png" alt="" width="40" height="40">
       <span>Chart Funded</span>
     </a>
-    <a class="top-link" id="topX" href="#" target="_blank" rel="noopener noreferrer">@Chartfunded on X</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#rules">Rules</a>
+      <a href="#genesis">Genesis NFT</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="icon-link" id="topX" href="#" target="_blank" rel="noopener noreferrer" aria-label="Chart Funded on X">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg>
+      </a>
+      <a class="btn small" href="#whitelist">Join whitelist</a>
+    </div>
   </header>
 
   <main>
+    <!-- ================= HERO ================= -->
     <section class="hero">
       <div class="hero-copy">
+        <p class="pill"><span class="dot" aria-hidden="true"></span>Genesis whitelist is open</p>
         <h1>Prop trading is going on‑chain.</h1>
-        <p class="lede">Chart Funded gives skilled traders real MT5 capital under rules that fit on one page. Now we're starting a new journey on Web3 with the Chart Funded Genesis NFT.</p>
+        <p class="lede">Real MT5 capital for verified traders. No challenge fees, no challenge phase, and every rule written on one page. Now Chart Funded is starting a new journey on Web3.</p>
+        <ul class="perks">
+          <li>Guaranteed early mint spot for whitelisted wallets</li>
+          <li>Founders role in the Chart Funded Discord</li>
+          <li>First look at the trader dashboard</li>
+          <li>Genesis holder benefits, published before mint</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn primary" href="#whitelist">Join the whitelist</a>
+          <a class="btn ghost" href="#rules">Read the rules</a>
+        </div>
+      </div>
+
+      <figure class="mock" aria-label="Preview of the Chart Funded trader dashboard">
+        <div class="mock-top">
+          <div>
+            <p class="mock-label">Account CF‑10241</p>
+            <p class="mock-size">$10,000</p>
+          </div>
+          <span class="badge ok">Active</span>
+        </div>
+        <div class="mock-equity">
+          <p class="mock-label">Equity</p>
+          <p class="mock-big">$10,482.60 <span class="up">+4.83%</span></p>
+          <svg class="spark" viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#38CDF4" stop-opacity=".35"/>
+                <stop offset="1" stop-color="#38CDF4" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 58 L25 54 L50 56 L75 46 L100 48 L125 38 L150 41 L175 30 L200 33 L225 22 L250 25 L275 14 L300 10 L300 70 L0 70 Z" fill="url(#sparkFill)"/>
+            <path d="M0 58 L25 54 L50 56 L75 46 L100 48 L125 38 L150 41 L175 30 L200 33 L225 22 L250 25 L275 14 L300 10" fill="none" stroke="#38CDF4" stroke-width="2.5" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+        <div class="mock-meters">
+          <div class="m">
+            <p><span>Daily DD</span><span>$38 / $200</span></p>
+            <div class="bar"><span class="w19"></span></div>
+          </div>
+          <div class="m">
+            <p><span>Max DD</span><span>$0 / $500</span></p>
+            <div class="bar"><span class="w2"></span></div>
+          </div>
+        </div>
+        <div class="mock-pos">
+          <span>XAUUSD</span><span class="tag-buy">Buy 0.20</span><span>Risk $42</span><span class="up">+$84.20</span>
+        </div>
+        <figcaption>Dashboard preview</figcaption>
+      </figure>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <section class="stats-strip" aria-label="Key numbers">
+      <div><strong>$10</strong><span>Genesis mint price</span></div>
+      <div><strong>0</strong><span>Challenge fees</span></div>
+      <div><strong>5%</strong><span>Max drawdown</span></div>
+      <div><strong>Anytime</strong><span>Withdraw profits</span></div>
+    </section>
+
+    <!-- ================= WHITELIST ================= -->
+    <section class="wl" id="whitelist">
+      <div class="wl-copy" id="how">
+        <h2>Get on the whitelist in two minutes</h2>
+        <p class="sub">Keep your X, Telegram and Discord open. Your progress shows on the pass.</p>
+        <ol class="how">
+          <li><strong>Add your X handle.</strong> We match it when we check your follow.</li>
+          <li><strong>Follow, then join.</strong> Follow @Chartfunded on X, join our Telegram and Discord.</li>
+          <li><strong>Paste your wallet.</strong> Your own EVM wallet. Exchange deposit addresses can't hold NFTs.</li>
+          <li><strong>We verify.</strong> The team checks every entry before mint. Unfollowing or leaving removes your spot.</li>
+        </ol>
       </div>
 
       <form class="pass" id="wlForm" novalidate autocomplete="off" aria-labelledby="passTitle">
@@ -107,7 +192,7 @@
                 <input type="checkbox" id="ownWallet">
                 <span>This is my own wallet, not an exchange deposit address.</span>
               </label>
-              <button type="submit" class="btn primary" id="submitBtn" disabled>Join whitelist</button>
+              <button type="submit" class="btn primary wide" id="submitBtn" disabled>Join whitelist</button>
               <p class="err" id="errW" role="alert"></p>
             </fieldset>
           </li>
@@ -123,51 +208,153 @@
           <p>We'll check your follows and joins before mint. The mint date is announced on @Chartfunded first.</p>
         </div>
       </form>
-
-      <dl class="facts">
-        <div><dt>$10</dt><dd>Genesis NFT mint price</dd></div>
-        <div><dt>Whitelist first</dt><dd>Whitelisted wallets mint before anyone else</dd></div>
-        <div><dt>No wallet connect</dt><dd>You only paste an address. We never ask you to sign.</dd></div>
-      </dl>
     </section>
 
-    <section class="block">
-      <h2>What Chart Funded is</h2>
-      <dl class="plain">
-        <div><dt>Real MT5 accounts</dt><dd>Verified traders trade live capital on MT5. Account size is assigned per trader.</dd></div>
-        <div><dt>No hidden rules</dt><dd>Max drawdown, daily drawdown and per-trade risk are written on one page. That's every rule there is.</dd></div>
-        <div><dt>Payouts you can check</dt><dd>Every payout certificate has a public link anyone can use to confirm it's real.</dd></div>
-      </dl>
+    <!-- ================= WHY ================= -->
+    <section class="section">
+      <h2>Built for traders who already have an edge</h2>
+      <p class="sub">We don't sell challenges. We verify traders and give them capital.</p>
+      <div class="grid">
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Real MT5 capital</h3>
+          <p>Verified traders trade live MT5 accounts. Account size is set per trader after review.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>No challenge, no fees</h3>
+          <p>No evaluation phase to pay for and no reset fees. You're verified once, then you trade.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Withdraw anytime</h3>
+          <p>Request a payout when you're in profit. Track every request from pending to paid.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Live risk meters</h3>
+          <p>Your daily and max drawdown update every few seconds, in dollars, on your dashboard.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Built-in journal</h3>
+          <p>Your MT5 trades land in your journal. Add notes, setups and screenshots to each one.</p>
+        </article>
+        <article class="card">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Payouts you can verify</h3>
+          <p>Every payout certificate has a public link. Anyone can check it's real.</p>
+        </article>
+      </div>
     </section>
 
-    <section class="block" id="genesis">
-      <h2>About the Genesis NFT</h2>
-      <dl class="plain">
-        <div><dt>Price</dt><dd>$10 per NFT.</dd></div>
-        <div><dt>Who mints first</dt><dd>Wallets on this whitelist, after we confirm the tasks.</dd></div>
-        <div><dt>Chain, supply and date</dt><dd>Announced on @Chartfunded before mint.</dd></div>
-        <div><dt>Holder benefits</dt><dd>Published in full, in writing, before mint opens.</dd></div>
-      </dl>
+    <!-- ================= RULES ================= -->
+    <section class="section" id="rules">
+      <div class="rules-wrap">
+        <div>
+          <h2>No hidden rules. This is all of them.</h2>
+          <p class="sub">Example on a $10,000 account. Limits scale with your account size.</p>
+        </div>
+        <div class="rules">
+          <div class="rule"><span class="r-name">Max drawdown</span><span class="r-val">5%</span><span class="r-ex">Equity can't go below $9,500</span></div>
+          <div class="rule"><span class="r-name">Daily drawdown</span><span class="r-val">2%</span><span class="r-ex">$200 from the day's starting equity</span></div>
+          <div class="rule"><span class="r-name">Risk per trade</span><span class="r-val">0.5%</span><span class="r-ex">Max $50 at risk on any single trade</span></div>
+          <div class="rule"><span class="r-name">Buffer</span><span class="r-val">$50</span><span class="r-ex">Fixed buffer on every account</span></div>
+          <div class="rule no"><span class="r-name">News trading</span><span class="r-val">Not allowed</span><span class="r-ex">No trades around high-impact news</span></div>
+          <div class="rule no"><span class="r-name">Hedging</span><span class="r-val">Not allowed</span><span class="r-ex">No buy and sell open on the same pair</span></div>
+          <div class="rule yes"><span class="r-name">Consistency rule</span><span class="r-val">None</span><span class="r-ex">One big day is fine</span></div>
+        </div>
+      </div>
     </section>
 
-    <section class="block safety">
+    <!-- ================= GENESIS ================= -->
+    <section class="section" id="genesis">
+      <h2>The Chart Funded Genesis NFT</h2>
+      <p class="sub">The first on-chain piece of Chart Funded. Here's what's set and what's still coming.</p>
+      <div class="genesis">
+        <dl class="g-facts">
+          <div><dt>Price</dt><dd>$10 per NFT</dd></div>
+          <div><dt>Who mints first</dt><dd>Verified whitelist wallets</dd></div>
+          <div><dt>Chain and supply</dt><dd>Announced on @Chartfunded before mint</dd></div>
+          <div><dt>Holder benefits</dt><dd>Published in full, in writing, before mint opens</dd></div>
+        </dl>
+        <ol class="road">
+          <li class="now"><span>Phase 1</span><strong>Whitelist open</strong><p>Complete the five tasks and submit your wallet.</p></li>
+          <li><span>Phase 2</span><strong>Verification</strong><p>We check every follow, join and wallet.</p></li>
+          <li><span>Phase 3</span><strong>Whitelist mint</strong><p>Verified wallets mint first at $10.</p></li>
+          <li><span>Phase 4</span><strong>Public mint</strong><p>Any remaining supply opens to everyone.</p></li>
+          <li><span>Phase 5</span><strong>Holder benefits live</strong><p>Benefits start as published before mint.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section" id="faq">
+      <h2>Questions</h2>
+      <div class="faq">
+        <details>
+          <summary>Is joining the whitelist free?</summary>
+          <p>Yes. The whitelist costs nothing. You only pay the $10 mint price if you mint.</p>
+        </details>
+        <details>
+          <summary>Do I need to connect my wallet?</summary>
+          <p>No. You only paste your address. This site never asks you to connect or sign anything. If a site does, it isn't us.</p>
+        </details>
+        <details>
+          <summary>Which wallet should I use?</summary>
+          <p>Your own EVM wallet, like MetaMask, Trust Wallet or Rabby. Don't use an exchange deposit address, because you won't be able to hold or see the NFT there.</p>
+        </details>
+        <details>
+          <summary>When is the mint?</summary>
+          <p>The date, chain and supply are announced on @Chartfunded first, then on Telegram and Discord.</p>
+        </details>
+        <details>
+          <summary>How are the tasks checked?</summary>
+          <p>The team reviews every entry before mint. If you unfollow on X or leave Telegram or Discord, your spot can be removed.</p>
+        </details>
+        <details>
+          <summary>Does holding the NFT get me a funded account?</summary>
+          <p>No. Funded accounts go to traders who pass our review. Holder benefits will be published separately before mint.</p>
+        </details>
+        <details>
+          <summary>Can I change my wallet after submitting?</summary>
+          <p>Message the team in Discord from the same account you submitted. We never ask you to send funds to change anything.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= SAFETY ================= -->
+    <section class="section safety">
       <h2>Stay safe</h2>
       <ul>
         <li>We never DM you first on X, Telegram or Discord.</li>
         <li>We never ask for your seed phrase or private key.</li>
-        <li>This page never asks you to connect or sign with your wallet.</li>
+        <li>This site never asks you to connect or sign with your wallet.</li>
         <li>Mint links are posted only on @Chartfunded and our official channels.</li>
       </ul>
+    </section>
+
+    <!-- ================= FINAL CTA ================= -->
+    <section class="final">
+      <h2>Your spot is five steps away.</h2>
+      <a class="btn primary" href="#whitelist">Join the whitelist</a>
     </section>
   </main>
 
   <footer class="foot">
-    <nav aria-label="Social links">
-      <a id="footX" href="#" target="_blank" rel="noopener noreferrer">X</a>
-      <a id="footTg" href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
-      <a id="footDc" href="#" target="_blank" rel="noopener noreferrer">Discord</a>
-    </nav>
-    <p>© 2026 Chart Funded</p>
+    <div class="foot-top">
+      <a class="brand" href="/">
+        <img src="assets/logo.png" alt="" width="36" height="36">
+        <span>Chart Funded</span>
+      </a>
+      <nav aria-label="Social links">
+        <a id="footX" href="#" target="_blank" rel="noopener noreferrer">X</a>
+        <a id="footTg" href="#" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a id="footDc" href="#" target="_blank" rel="noopener noreferrer">Discord</a>
+      </nav>
+    </div>
+    <p class="legal">Trading forex and CFDs on leverage carries a high level of risk and you can lose all of the capital at risk. Nothing on this site is investment advice. The Genesis NFT is a digital collectible; it is not a share, security or investment product, and no financial return is promised. Check the rules in your country before taking part.</p>
+    <p class="copyright">© 2026 Chart Funded</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>

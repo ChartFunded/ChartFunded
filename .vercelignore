@@ -1,0 +1,4 @@
+# keep backend / CI files OFF the public website
+supabase/
+.github/
+*.md

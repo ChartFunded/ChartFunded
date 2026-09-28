@@ -43,3 +43,4 @@ jobs:
 
       - name: Deploy mt5-bridge
         run: supabase functions deploy mt5-bridge --project-ref "$PROJECT_REF" --no-verify-jwt
+        

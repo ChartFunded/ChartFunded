@@ -1,0 +1,45 @@
+# Auto-deploys the Supabase Edge Functions whenever they change on GitHub (main branch).
+# Needs ONE GitHub secret: SUPABASE_ACCESS_TOKEN  (repo → Settings → Secrets and variables → Actions)
+name: Deploy Supabase Edge Functions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "supabase/functions/**"
+      - "supabase/config.toml"
+      - ".github/workflows/deploy-supabase-functions.yml"
+  workflow_dispatch:          # manual "Run workflow" button
+
+permissions:
+  contents: read              # read-only — the workflow can't change your repo
+
+concurrency:
+  group: supabase-functions
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      PROJECT_REF: doixjctsqdvfcwpqnqdg
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Check token
+        run: |
+          if [ -z "$SUPABASE_ACCESS_TOKEN" ]; then
+            echo "::error::SUPABASE_ACCESS_TOKEN secret is missing"; exit 1
+          fi
+
+      - name: Deploy tv-webhook
+        run: supabase functions deploy tv-webhook --project-ref "$PROJECT_REF" --no-verify-jwt
+
+      - name: Deploy mt5-bridge
+        run: supabase functions deploy mt5-bridge --project-ref "$PROJECT_REF" --no-verify-jwt

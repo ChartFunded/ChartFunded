@@ -1,0 +1,10 @@
+# Supabase CLI config — only what the Edge Function deploy needs.
+project_id = "doixjctsqdvfcwpqnqdg"
+
+# TradingView and the MT5 EA can't send a Supabase login token,
+# so JWT check is off — both functions verify their OWN secret instead.
+[functions.tv-webhook]
+verify_jwt = false
+
+[functions.mt5-bridge]
+verify_jwt = false

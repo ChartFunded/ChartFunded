@@ -1,0 +1,48 @@
+/* Chart Funded · Algo Desk (admin) */
+.adm-nav { display: flex; align-items: center; gap: 1rem; }
+.adm-nav a { color: var(--mist); text-decoration: none; font-weight: 600; }
+.adm-nav a[aria-current="page"], .adm-nav a:hover { color: #fff; }
+
+.desk-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; margin: .5rem 0 1rem; }
+.desk-title { font-size: 1.9rem; margin: 0; font-stretch: 120%; }
+.desk-sub { margin: .2rem 0 0; color: var(--mist); font-size: .95rem; }
+.desk-ctrl { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.bridge-info { color: var(--mist); font-size: .9rem; margin: 0 0 1rem; }
+
+.pill { font-size: .85rem; font-weight: 700; padding: .35rem .8rem; border-radius: 999px; border: 1px solid var(--line); color: var(--mist); }
+.pill.on  { color: var(--ok); border-color: var(--ok); }
+.pill.off { color: var(--danger); border-color: var(--danger); }
+#tradeBtn.on  { background: rgba(67, 217, 160, .12); border-color: var(--ok); color: var(--ok); }
+#tradeBtn.off { background: rgba(255, 122, 136, .10); border-color: var(--danger); color: var(--danger); }
+
+.set-box { margin-bottom: 1rem; }
+.set-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .8rem; }
+.set-grid label { display: flex; flex-direction: column; gap: .3rem; color: var(--mist); font-size: .9rem; }
+.set-grid input { background: var(--abyss-2); border: 1px solid var(--line); border-radius: var(--radius-sm); color: #fff; padding: .55rem .7rem; font: inherit; }
+.set-actions { display: flex; gap: .6rem; margin-top: .9rem; }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .7rem; margin-bottom: 1rem; }
+.kpi { background: var(--deep); border: 1px solid var(--line); border-radius: var(--radius-md); padding: .9rem 1rem; }
+.kpi dt { color: var(--mist); font-size: .85rem; }
+.kpi dd { margin: .15rem 0 0; font-size: 1.45rem; font-weight: 800; font-stretch: 120%; color: #fff; }
+.kpi dd.pos { color: var(--ok); }
+.kpi dd.neg { color: var(--danger); }
+
+.chart-box, .admin-wrap .panel.table-scroll { margin-bottom: 1rem; }
+.box-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .6rem; }
+.box-head h2 { font-size: 1.1rem; margin: 0; }
+.muted { color: var(--mist); font-size: .85rem; }
+#eqSvg { width: 100%; height: 220px; display: block; }
+
+.res { font-weight: 700; }
+.res.tp { color: var(--ok); }
+.res.sl { color: var(--danger); }
+.res.be { color: #FFB300; }
+.res.other { color: var(--mist); }
+td.pos { color: var(--ok); }
+td.neg { color: var(--danger); }
+
+@media (max-width: 640px) {
+  .adm-nav { gap: .6rem; font-size: .9rem; }
+  .desk-title { font-size: 1.5rem; }
+}

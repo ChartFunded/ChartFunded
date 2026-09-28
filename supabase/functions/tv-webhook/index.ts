@@ -11,8 +11,75 @@
 //  8 KB body cap, strict validation, idempotent (same event processed once),
 //  the key is stripped before anything is logged.
 // ═══════════════════════════════════════════════════════════════════════════
-import { db, json, safeEqual, ipAllowed, readBody, isNum, settings, guardDailyLoss } from "../_shared/common.ts";
 
+// ───────── shared helpers (inlined so the file can be pasted in the Supabase dashboard editor) ─────────
+// Shared helpers for the Chart Funded algo Edge Functions.
+import { createClient } from "npm:@supabase/supabase-js@2.45.4";
+
+const db = createClient(
+  Deno.env.get("SUPABASE_URL")!,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,          // server-side only, never shipped to a browser
+  { auth: { persistSession: false, autoRefreshToken: false } },
+);
+
+const json = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { "content-type": "application/json", "cache-control": "no-store" },
+  });
+
+// constant-time string compare (no early exit → no timing leak)
+function safeEqual(a: string, b: string): boolean {
+  const ea = new TextEncoder().encode(a);
+  const eb = new TextEncoder().encode(b);
+  let diff = ea.length ^ eb.length;
+  const n = Math.max(ea.length, eb.length);
+  for (let i = 0; i < n; i++) diff |= (ea[i] ?? 0) ^ (eb[i] ?? 0);
+  return diff === 0;
+}
+
+// optional IP allow-list (comma separated env var). Empty = allow all.
+function ipAllowed(req: Request, envName: string): boolean {
+  const list = (Deno.env.get(envName) ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  if (!list.length) return true;
+  const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0].trim();
+  return list.includes(ip);
+}
+
+// read body with a hard size cap
+async function readBody(req: Request, max = 8192): Promise<string | null> {
+  const len = Number(req.headers.get("content-length") ?? "0");
+  if (len > max) return null;
+  const text = await req.text();
+  return text.length > max ? null : text;
+}
+
+const isNum = (v: unknown) => typeof v === "number" && Number.isFinite(v) && v > 0 && v < 1e7;
+
+async function settings() {
+  const { data, error } = await db.from("algo_settings").select("*").eq("id", 1).single();
+  if (error) throw new Error("settings");
+  return data;
+}
+
+// realised (non-paper) P&L since 00:00 UTC — for the daily loss guard
+async function todayLoss(): Promise<number> {
+  const start = new Date(); start.setUTCHours(0, 0, 0, 0);
+  const { data } = await db.from("algo_trades").select("pnl")
+    .eq("paper", false).gte("closed_at", start.toISOString()).not("pnl", "is", null);
+  return (data ?? []).reduce((s, r) => s + Number(r.pnl), 0);
+}
+
+async function guardDailyLoss(maxLoss: number) {
+  if (maxLoss <= 0) return;
+  const pnl = await todayLoss();
+  if (pnl <= -maxLoss) {
+    await db.from("algo_settings").update({ trading_enabled: false, updated_at: new Date().toISOString() }).eq("id", 1);
+    await db.from("algo_events").insert({ source: "bridge", event: "daily_loss_stop", payload: { pnl } });
+  }
+}
+
+// ───────── function ─────────
 const SECRET = Deno.env.get("TV_WEBHOOK_SECRET") ?? "";
 const STRATS = new Set(["FAST", "TALHA"]);
 const EVENTS = new Set(["create", "trigger", "cancel", "modify", "tp", "sl", "be"]);

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Chart Funded · Algo Desk</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/algo.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="" width="40" height="40">
+      <span>Chart Funded admin</span>
+    </a>
+    <nav class="adm-nav" id="admNav" hidden>
+      <a href="/admin">Whitelist</a>
+      <a href="/algo" aria-current="page">Algo Desk</a>
+      <button type="button" class="btn ghost small" id="logoutBtn">Log out</button>
+    </nav>
+  </header>
+
+  <div class="admin-wrap">
+    <!-- LOGIN -->
+    <form class="panel login-box" id="loginView" novalidate>
+      <h1>Admin login</h1>
+      <div class="field"><label for="email" class="sr">Email</label>
+        <input id="email" type="email" placeholder="Email" autocomplete="username"></div>
+      <div class="field"><label for="password" class="sr">Password</label>
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password"></div>
+      <button type="submit" class="btn primary" id="loginBtn">Log in</button>
+      <p class="err" id="loginErr" role="alert"></p>
+    </form>
+
+    <!-- DESK -->
+    <section id="deskView" hidden>
+      <div class="desk-head">
+        <div>
+          <h1 class="desk-title">Algo Desk</h1>
+          <p class="desk-sub">TradingView (OANDA) → Chart Funded → MT5 · admin only</p>
+        </div>
+        <div class="desk-ctrl">
+          <span class="pill" id="bridgePill">Bridge · checking…</span>
+          <button type="button" class="btn" id="tradeBtn">Trading: …</button>
+          <button type="button" class="btn ghost" id="setBtn">Settings</button>
+        </div>
+      </div>
+      <p class="err" id="deskErr" role="alert"></p>
+      <p class="bridge-info" id="bridgeInfo"></p>
+
+      <!-- settings -->
+      <form class="panel set-box" id="setBox" hidden novalidate>
+        <div class="set-grid">
+          <label>Buffer (pips)<input id="sBuf" type="number" min="0" max="50" step="0.5"></label>
+          <label>Fast Track lot<input id="sLf" type="number" min="0" max="1" step="0.01"></label>
+          <label>Talha lot<input id="sLt" type="number" min="0" max="1" step="0.01"></label>
+          <label>Max open trades<input id="sMo" type="number" min="0" max="10" step="1"></label>
+          <label>Daily loss stop ($)<input id="sDl" type="number" min="0" step="10"></label>
+        </div>
+        <div class="set-actions">
+          <button type="submit" class="btn primary small" id="setSave">Save settings</button>
+          <button type="button" class="btn ghost small" id="setCancel">Close</button>
+        </div>
+      </form>
+
+      <!-- filters -->
+      <div class="toolbar">
+        <label for="fStrat" class="sr">Strategy</label>
+        <select id="fStrat">
+          <option value="all">All strategies</option>
+          <option value="FAST">Fast Track (M30)</option>
+          <option value="TALHA">Talha Sniper (H1)</option>
+        </select>
+        <label for="fMode" class="sr">Mode</label>
+        <select id="fMode">
+          <option value="live">Live (broker)</option>
+          <option value="paper">Paper (log only)</option>
+          <option value="all">Live + paper</option>
+        </select>
+        <label for="fRange" class="sr">Range</label>
+        <select id="fRange">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+          <option value="0">All time</option>
+        </select>
+        <button type="button" class="btn ghost" id="reloadBtn">Reload</button>
+        <button type="button" class="btn" id="csvBtn">Export CSV</button>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpis" id="kpis"></div>
+
+      <!-- equity -->
+      <div class="panel chart-box">
+        <div class="box-head"><h2>Equity curve</h2><span id="eqNote" class="muted"></span></div>
+        <svg id="eqSvg" viewBox="0 0 800 220" preserveAspectRatio="none" role="img" aria-label="Equity curve"></svg>
+      </div>
+
+      <!-- per strategy -->
+      <div class="panel table-scroll">
+        <div class="box-head"><h2>By strategy</h2></div>
+        <table><thead><tr><th>Strategy</th><th>Trades</th><th>TP</th><th>SL</th><th>BE</th><th>Win rate</th><th>Net P&amp;L</th><th>Profit factor</th></tr></thead>
+          <tbody id="stratRows"></tbody></table>
+      </div>
+
+      <!-- open / pending -->
+      <div class="panel table-scroll">
+        <div class="box-head"><h2>Open &amp; pending</h2></div>
+        <table><thead><tr><th>Setup</th><th>Strat</th><th>Side</th><th>Status</th><th>Entry</th><th>SL</th><th>TP</th><th>Lots</th><th>Ticket</th><th>Created</th></tr></thead>
+          <tbody id="openRows"></tbody></table>
+      </div>
+
+      <!-- history -->
+      <div class="panel table-scroll">
+        <div class="box-head"><h2>Trade history</h2><span class="muted" id="histNote"></span></div>
+        <table><thead><tr><th>Closed</th><th>Strat</th><th>Side</th><th>Result</th><th>Entry</th><th>Exit</th><th>Pips</th><th>P&amp;L</th><th>Mode</th><th>Reason</th></tr></thead>
+          <tbody id="histRows"></tbody></table>
+      </div>
+
+      <!-- events -->
+      <div class="panel table-scroll">
+        <div class="box-head"><h2>Event log</h2><span class="muted">last 50</span></div>
+        <table><thead><tr><th>Time</th><th>Source</th><th>Event</th><th>Setup</th><th>OK</th><th>Error</th></tr></thead>
+          <tbody id="evRows"></tbody></table>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/algo.js"></script>
+</body>
+</html>

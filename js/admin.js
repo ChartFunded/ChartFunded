@@ -10,6 +10,7 @@
     $("loginView").hidden = view !== "login";
     $("panelView").hidden = view !== "panel";
     $("logoutBtn").hidden = view !== "panel";
+    $("algoLink").hidden = view !== "panel";
   };
   const err = (id, msg) => { $(id).textContent = msg || ""; };
 

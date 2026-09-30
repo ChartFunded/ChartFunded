@@ -599,3 +599,120 @@ td a { color: var(--cyan); text-decoration: none; }
 .v-facts dt { color: var(--mist); }
 .v-facts dd { margin: 0; font-weight: 700; text-align: right; overflow-wrap: anywhere; }
 .v-form .field { margin-top: .4rem; }
+
+/* =========================================================
+   SUSPENSE / LOCKED STATE
+   ========================================================= */
+.lk {
+  display: inline-block; flex: none;
+  width: 1em; height: 1em; vertical-align: -.12em;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Zm3 4a1.6 1.6 0 0 0-1 2.85V18h2v-1.15A1.6 1.6 0 0 0 12 14Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Zm3 4a1.6 1.6 0 0 0-1 2.85V18h2v-1.15A1.6 1.6 0 0 0 12 14Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* hero locked list */
+.locked-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: .6rem; }
+.locked-list li {
+  display: flex; align-items: center; gap: .7rem; flex-wrap: wrap;
+  padding: .7rem .9rem; border-radius: 12px;
+  background: rgba(6, 31, 76, .6); border: 1px solid var(--line);
+  font-weight: 600;
+}
+.locked-list .lk { color: var(--cyan); font-size: 1.1rem; }
+.locked-list em {
+  margin-left: auto; font-style: normal; font-size: .8rem; font-weight: 700;
+  color: var(--cyan); padding: .15rem .6rem; border-radius: 999px;
+  border: 1px solid rgba(56, 205, 244, .4); background: rgba(56, 205, 244, .08);
+}
+
+/* NFT card: classified tag */
+.nft-classified {
+  position: relative; z-index: 2; margin: 0;
+  display: flex; align-items: center; justify-content: center; gap: .45rem;
+  font-size: .78rem; font-weight: 800; letter-spacing: .25em; font-stretch: 120%;
+  color: var(--cyan);
+  padding: .45rem; border-radius: 10px;
+  background: rgba(0, 21, 58, .7); border: 1px solid rgba(56, 205, 244, .45);
+  animation: blink 2.4s ease-in-out infinite;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+
+/* locked stats */
+.stats-strip.locked div { position: relative; }
+.stats-strip.locked .lk { color: var(--cyan); font-size: 1.3rem; margin-bottom: .5rem; }
+.stats-strip.locked strong { font-size: 1.15rem; }
+.stats-strip.locked span:last-child { color: var(--cyan); font-weight: 600; }
+
+/* benefits vault */
+.reveal-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; }
+.reveal-count {
+  margin: 0 0 2rem; padding: .5rem 1rem; border-radius: 999px;
+  border: 1px solid var(--line); background: rgba(6, 31, 76, .6); color: var(--mist);
+}
+.reveal-count strong { color: var(--cyan); font-size: 1.2rem; }
+.vault { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vault-card {
+  position: relative; overflow: hidden;
+  min-height: 170px; padding: 1.1rem;
+  display: flex; flex-direction: column; gap: .9rem;
+  border-radius: var(--radius-lg);
+  background:
+    repeating-linear-gradient(135deg, rgba(56, 205, 244, .04) 0 10px, transparent 10px 20px),
+    linear-gradient(180deg, rgba(10, 38, 89, .8), rgba(6, 31, 76, .55));
+  border: 1px solid var(--line);
+}
+.vault-card.big {
+  grid-column: span 2; min-height: 200px;
+  background:
+    repeating-linear-gradient(135deg, rgba(56, 205, 244, .05) 0 10px, transparent 10px 20px),
+    linear-gradient(180deg, rgba(10, 38, 89, .95), rgba(6, 31, 76, .85)) padding-box,
+    linear-gradient(150deg, #E8EEF5, var(--blue) 55%, var(--cyan)) border-box;
+  border: 1.5px solid transparent;
+}
+.vault-card::after {  /* scanning shine */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(120, 215, 255, .12) 50%, transparent 65%);
+  background-size: 250% 100%;
+  animation: scan 3.8s ease-in-out infinite;
+}
+.vault-card:nth-child(2n)::after { animation-delay: .8s; }
+.vault-card:nth-child(3n)::after { animation-delay: 1.6s; }
+@keyframes scan { 0% { background-position: 130% 0; } 70%, 100% { background-position: -30% 0; } }
+.vc-top { display: flex; justify-content: space-between; align-items: center; }
+.vc-no { font-weight: 800; font-stretch: 125%; color: var(--blue); font-size: 1.1rem; }
+.vc-lock {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .78rem; font-weight: 700; color: var(--cyan);
+  padding: .2rem .6rem; border-radius: 999px; border: 1px solid rgba(56, 205, 244, .4);
+}
+.redact { display: grid; gap: .55rem; flex: 1; align-content: center; }
+.redact i {
+  display: block; height: 12px; border-radius: 4px;
+  background: linear-gradient(90deg, #13306A, #1D4690, #13306A);
+  background-size: 200% 100%;
+  animation: shimmer 2.2s linear infinite;
+}
+.vault-card.big .redact i { height: 16px; }
+.r40 { width: 40%; } .r45 { width: 45%; } .r50 { width: 50%; } .r55 { width: 55%; } .r60 { width: 60%; }
+.r65 { width: 65%; } .r70 { width: 70%; } .r75 { width: 75%; } .r80 { width: 80%; } .r85 { width: 85%; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.vc-soon { margin: 0; font-weight: 700; color: var(--mist); font-size: .92rem; }
+.vault-card.more { align-items: center; justify-content: center; text-align: center; grid-column: span 2; }
+.more-q { margin: 0; font-size: 3rem; font-weight: 800; line-height: 1; color: var(--cyan); }
+
+/* roadmap locked */
+.road-locked li.lock strong { display: flex; align-items: center; gap: .45rem; color: var(--mist); }
+.road-locked li.lock strong .lk { color: var(--cyan); }
+
+/* final lock */
+.final-lock { margin: 0 0 1rem; font-size: 2.6rem; color: var(--cyan); }
+.final-lock .lk { filter: drop-shadow(0 0 14px rgba(56, 205, 244, .8)); }
+
+@media (min-width: 720px) {
+  .vault { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .vault-card.more { grid-column: span 2; }
+}
+@media (min-width: 960px) {
+  .vault { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

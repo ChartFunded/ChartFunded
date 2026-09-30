@@ -86,20 +86,24 @@
             <label class="lbl" for="cType">Type</label>
             <select id="cType">
               <option value="payout">Payout certificate</option>
-              <option value="funded">Funded pass certificate</option>
+              <option value="funded">Evaluation pass certificate</option>
             </select>
 
             <label class="lbl" for="cName">Trader name</label>
             <div class="field"><input id="cName" maxlength="60" placeholder="e.g. Kasfur" autocomplete="off"></div>
 
-            <label class="lbl" for="cAmount" id="cAmountLbl">Payout amount ($)</label>
-            <div class="field"><span class="prefix" aria-hidden="true">$</span><input id="cAmount" inputmode="decimal" placeholder="300" autocomplete="off"></div>
+            <div id="cAmtWrap">
+              <label class="lbl" for="cAmount">Payout amount ($)</label>
+              <div class="field"><span class="prefix" aria-hidden="true">$</span><input id="cAmount" inputmode="decimal" placeholder="300" autocomplete="off"></div>
+            </div>
 
             <div id="cProgWrap" hidden>
-              <label class="lbl" for="cProgram">Program</label>
+              <label class="lbl" for="cProgram">Evaluation stage</label>
               <select id="cProgram">
-                <option value="Step 1 Evaluation">Step 1 Evaluation</option>
-                <option value="Instant Funding">Instant Funding</option>
+                <option value="Step 1 Evaluation">1-Step Evaluation – Pass</option>
+                <option value="2-Step Phase 1">2-Step Evaluation – Phase 1 Pass</option>
+                <option value="2-Step Phase 2">2-Step Evaluation – Phase 2 Pass</option>
+                <option value="2-Step Evaluation">2-Step Evaluation – Pass (Funded)</option>
               </select>
             </div>
 

@@ -603,13 +603,20 @@ td a { color: var(--cyan); text-decoration: none; }
 /* =========================================================
    SUSPENSE / LOCKED STATE
    ========================================================= */
-.lk {
-  display: inline-block; flex: none;
-  width: 1em; height: 1em; vertical-align: -.12em;
-  background: currentColor;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Zm3 4a1.6 1.6 0 0 0-1 2.85V18h2v-1.15A1.6 1.6 0 0 0 12 14Z'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Zm3 4a1.6 1.6 0 0 0-1 2.85V18h2v-1.15A1.6 1.6 0 0 0 12 14Z'/%3E%3C/svg%3E") center / contain no-repeat;
+.lk { display: inline-block; flex: none; width: 1em; height: 1em; vertical-align: -.15em; }
+
+/* padlock inside a glowing ring */
+.lk-badge {
+  display: inline-grid; place-items: center; flex: none;
+  width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  color: #BDF0FF;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(56, 205, 244, .35), rgba(6, 31, 76, .9) 72%) padding-box,
+    linear-gradient(150deg, #E8EEF5, var(--blue) 55%, var(--cyan)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 0 18px -4px rgba(56, 205, 244, .7);
 }
+.lk-badge .lk { width: 1.25rem; height: 1.25rem; vertical-align: 0; filter: drop-shadow(0 0 4px rgba(56, 205, 244, .8)); }
 
 /* hero locked list */
 .locked-list { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: .6rem; }
@@ -619,7 +626,7 @@ td a { color: var(--cyan); text-decoration: none; }
   background: rgba(6, 31, 76, .6); border: 1px solid var(--line);
   font-weight: 600;
 }
-.locked-list .lk { color: var(--cyan); font-size: 1.1rem; }
+.locked-list .lk-badge { width: 2.2rem; height: 2.2rem; }
 .locked-list em {
   margin-left: auto; font-style: normal; font-size: .8rem; font-weight: 700;
   color: var(--cyan); padding: .15rem .6rem; border-radius: 999px;
@@ -627,6 +634,7 @@ td a { color: var(--cyan); text-decoration: none; }
 }
 
 /* NFT card: classified tag */
+.nft-classified .lk { width: 1.05em; height: 1.05em; }
 .nft-classified {
   position: relative; z-index: 2; margin: 0;
   display: flex; align-items: center; justify-content: center; gap: .45rem;
@@ -640,7 +648,8 @@ td a { color: var(--cyan); text-decoration: none; }
 
 /* locked stats */
 .stats-strip.locked div { position: relative; }
-.stats-strip.locked .lk { color: var(--cyan); font-size: 1.3rem; margin-bottom: .5rem; }
+.stats-strip.locked .lk-badge { display: grid; margin-bottom: .7rem; }
+.stats-strip.locked strong { display: block; }
 .stats-strip.locked strong { font-size: 1.15rem; }
 .stats-strip.locked span:last-child { color: var(--cyan); font-weight: 600; }
 
@@ -706,8 +715,9 @@ td a { color: var(--cyan); text-decoration: none; }
 .road-locked li.lock strong .lk { color: var(--cyan); }
 
 /* final lock */
-.final-lock { margin: 0 0 1rem; font-size: 2.6rem; color: var(--cyan); }
-.final-lock .lk { filter: drop-shadow(0 0 14px rgba(56, 205, 244, .8)); }
+.final-lock { margin: 0 0 1.2rem; display: flex; justify-content: center; }
+.final-lock .lk-badge { width: 4.2rem; height: 4.2rem; box-shadow: 0 0 40px -6px rgba(56, 205, 244, .9); }
+.final-lock .lk-badge .lk { width: 2rem; height: 2rem; }
 
 @media (min-width: 720px) {
   .vault { grid-template-columns: repeat(4, minmax(0, 1fr)); }

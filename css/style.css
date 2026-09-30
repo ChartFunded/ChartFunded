@@ -564,3 +564,38 @@ td a { color: var(--cyan); text-decoration: none; }
   .nav .btn.small { padding: .45rem .7rem; }
   .nav .icon-link { display: none; }
 }
+
+/* ---------- Admin tabs & certificates ---------- */
+.tabs { display: flex; gap: .4rem; margin: 0 0 1.2rem; border-bottom: 1px solid var(--line); }
+.tab {
+  appearance: none; background: none; border: 0; cursor: pointer;
+  font: inherit; font-weight: 700; color: var(--mist);
+  padding: .7rem 1rem; border-bottom: 2px solid transparent; margin-bottom: -1px;
+}
+.tab.is-on { color: var(--steel); border-bottom-color: var(--cyan); }
+.panel-h { margin: 0 0 1rem; font-size: 1.2rem; }
+.lbl { display: block; margin: 1rem 0 .1rem; font-weight: 600; font-size: .92rem; color: var(--mist); }
+.cert-form select { width: 100%; margin-top: .4rem; }
+.cert-form .field { margin-top: .4rem; }
+.cert-form input[type="date"] { color-scheme: dark; }
+.cert-form .btn.primary { width: 100%; margin-top: 1rem; }
+.cert-layout { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); margin-bottom: 1rem; }
+.cert-preview canvas { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--line); }
+.cert-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+.cert-code { color: var(--mist); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.cert-list { margin-top: 1rem; }
+@media (min-width: 960px) { .cert-layout { grid-template-columns: 340px minmax(0, 1fr); align-items: start; } }
+
+/* ---------- Verify page ---------- */
+.verify-wrap { max-width: 560px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+.verify-card { padding: 1.6rem; }
+.v-status { margin: 0 0 1rem; font-weight: 700; font-size: 1.1rem; color: var(--mist); }
+.v-status.good { color: var(--ok); }
+.v-status.bad { color: var(--danger); }
+.v-type { margin: 0; color: var(--mist); font-size: .95rem; }
+.v-name { margin: .1rem 0 1rem; font-family: "Kaushan Script", cursive; font-size: 2.6rem; line-height: 1.2; color: var(--cyan); overflow-wrap: anywhere; }
+.v-facts { margin: 0 0 1.4rem; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.v-facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; background: var(--deep); }
+.v-facts dt { color: var(--mist); }
+.v-facts dd { margin: 0; font-weight: 700; text-align: right; overflow-wrap: anywhere; }
+.v-form .field { margin-top: .4rem; }

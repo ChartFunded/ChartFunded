@@ -3,6 +3,20 @@
   const C = window.CF_CONFIG;
   const $ = (id) => document.getElementById(id);
   const sb = window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY);
+  window.CF_SB = sb; // certificates.js isi client ko use karta hai (anon key public hai)
+
+  // ---------- Tabs ----------
+  const tabs = { tabWl: "wlView", tabCert: "certView" };
+  Object.keys(tabs).forEach((t) => {
+    $(t).addEventListener("click", () => {
+      Object.keys(tabs).forEach((o) => {
+        const on = o === t;
+        $(o).classList.toggle("is-on", on);
+        $(o).setAttribute("aria-selected", String(on));
+        $(tabs[o]).hidden = !on;
+      });
+    });
+  });
 
   let rows = [];
 
@@ -10,7 +24,6 @@
     $("loginView").hidden = view !== "login";
     $("panelView").hidden = view !== "panel";
     $("logoutBtn").hidden = view !== "panel";
-    $("algoLink").hidden = view !== "panel";
   };
   const err = (id, msg) => { $(id).textContent = msg || ""; };
 
@@ -25,7 +38,23 @@
     });
     $("password").value = "";
     $("loginBtn").disabled = false;
-    if (error) { err("loginErr", "Email or password is wrong."); return; }
+    if (error) {
+      const m = (error.code || error.message || "").toLowerCase();
+      if (m.includes("not_confirmed") || m.includes("not confirmed")) {
+        err("loginErr", "Email not confirmed. Re-create the user in Supabase with 'Auto Confirm User' ticked.");
+      } else if (m.includes("invalid") || m.includes("credentials")) {
+        err("loginErr", "Email or password is wrong.");
+      } else if (m.includes("disabled") || m.includes("provider")) {
+        err("loginErr", "Email login is turned off. Enable the Email provider in Supabase.");
+      } else if (m.includes("rate") || m.includes("too many")) {
+        err("loginErr", "Too many attempts. Wait a few minutes and try again.");
+      } else if (m.includes("fetch") || m.includes("network")) {
+        err("loginErr", "Can't reach Supabase. Check your internet and config.js.");
+      } else {
+        err("loginErr", "Login failed: " + (error.message || "unknown error"));
+      }
+      return;
+    }
     await enter();
   });
 
@@ -33,6 +62,7 @@
     await sb.auth.signOut();
     rows = [];
     $("rows").replaceChildren();
+    document.dispatchEvent(new CustomEvent("cf-admin-logout"));
     show("login");
   });
 
@@ -45,6 +75,7 @@
       return;
     }
     show("panel");
+    document.dispatchEvent(new CustomEvent("cf-admin-ready"));
     await load();
   }
 

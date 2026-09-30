@@ -9,6 +9,16 @@
   let list = [];
   let ready = false;
 
+  // Har program ka text (Instant Funding sirf purane certificates ke liye)
+  const PROG = {
+    "Step 1 Evaluation": { title: "FUNDED TRADER CERTIFICATE", l1: "For successfully passing the Chart Funded", l2: "1-Step Evaluation and earning a funded account.", box: "FUNDED PROGRAM", big: "1-STEP EVALUATION PASS", short: "1-Step Pass" },
+    "2-Step Phase 1":    { title: "PHASE 1 PASS CERTIFICATE", l1: "For successfully passing Phase 1", l2: "of the Chart Funded 2-Step Evaluation.", box: "2-STEP EVALUATION", big: "PHASE 1 PASSED", short: "2-Step · Phase 1" },
+    "2-Step Phase 2":    { title: "PHASE 2 PASS CERTIFICATE", l1: "For successfully passing Phase 2", l2: "of the Chart Funded 2-Step Evaluation.", box: "2-STEP EVALUATION", big: "PHASE 2 PASSED", short: "2-Step · Phase 2" },
+    "2-Step Evaluation": { title: "FUNDED TRADER CERTIFICATE", l1: "For successfully completing the Chart Funded", l2: "2-Step Evaluation and earning a funded account.", box: "FUNDED PROGRAM", big: "2-STEP EVALUATION PASS", short: "2-Step Pass" },
+    "Instant Funding":   { title: "FUNDED TRADER CERTIFICATE", l1: "For meeting the Chart Funded trading standards", l2: "and earning Instant Funding with real capital.", box: "FUNDED PROGRAM", big: "INSTANT FUNDING", short: "Instant" },
+  };
+  const progOf = (d) => PROG[d.program] || PROG["Step 1 Evaluation"];
+
   const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
   const today = () => new Date().toISOString().slice(0, 10);
   const money = (n) => "$" + Number(n).toLocaleString("en-US", {
@@ -103,7 +113,7 @@
       }
     };
     candles(80, 300, false, 11);
-    candles(W - 440, 640, true, 29);
+    candles(W - 400, 700, true, 29);
 
     // corner light streaks
     ctx.save();
@@ -200,7 +210,8 @@
     background(); frame(); header();
 
     // Title
-    const title = funded ? "FUNDED TRADER CERTIFICATE" : "PAYOUT CERTIFICATE";
+    const P = funded ? progOf(d) : null;
+    const title = funded ? P.title : "PAYOUT CERTIFICATE";
     fit(title, '800 {s}px "Saira", sans-serif', 96, 1260);
     ctx.save(); ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 4;
     ctx.fillStyle = silver(270, 350); ctx.fillText(title, W / 2, 350); ctx.restore();
@@ -222,8 +233,8 @@
     // Body
     setFont('500 28px "Saira", sans-serif'); ctx.fillStyle = "#E4EAF1";
     if (funded) {
-      ctx.fillText("For meeting the Chart Funded trading standards", W / 2, 620);
-      ctx.fillText("and earning a funded trading account.", W / 2, 658);
+      ctx.fillText(P.l1, W / 2, 620);
+      ctx.fillText(P.l2, W / 2, 658);
     } else {
       ctx.fillText("In recognition of your outstanding trading performance", W / 2, 620);
       ctx.fillText("and successful achievement of your payout.", W / 2, 658);
@@ -241,15 +252,15 @@
     ctx.restore();
     laurel(cx - 245, mid + 8, 1); laurel(cx + 245, mid + 8, -1);
     setFont('700 21px "Saira", sans-serif'); ctx.fillStyle = "#E4EAF1";
-    spaced(funded ? "FUNDED ACCOUNT SIZE" : "PAYOUT AMOUNT", cx, top + 42, 6);
-    const amt = money(d.amount || 0);
-    fit(amt, '800 {s}px "Saira", sans-serif', 84, 400);
+    spaced(funded ? P.box : "PAYOUT AMOUNT", cx, top + 42, 6);
+    const big = funded ? P.big : money(d.amount || 0);
+    fit(big, '800 {s}px "Saira", sans-serif', funded ? 60 : 84, 420);
     ctx.save(); ctx.shadowColor = "rgba(56,205,244,.55)"; ctx.shadowBlur = 16;
-    ctx.fillStyle = blueGrad(top + 60, top + 140); ctx.fillText(amt, cx, top + 132); ctx.restore();
+    ctx.fillStyle = blueGrad(top + 60, top + 140); ctx.fillText(big, cx, funded ? top + 118 : top + 132); ctx.restore();
 
     // Tagline / program
     setFont('600 19px "Saira", sans-serif'); ctx.fillStyle = "#C9D3DF";
-    const tag = funded ? "PROGRAM: " + String(d.program || "").toUpperCase() : "YOUR SKILLS. OUR SUPPORT. REAL OPPORTUNITY.";
+    const tag = "YOUR SKILLS. OUR SUPPORT. REAL OPPORTUNITY.";
     const tw = spaced(tag, W / 2, 900, 5);
     sideLines(893, tw / 2, 110);
 
@@ -280,15 +291,14 @@
     return {
       cert_type: $("cType").value,
       trader_name: $("cName").value.trim().replace(/\s+/g, " "),
-      amount: Number(String($("cAmount").value).replace(/[, $]/g, "")),
+      amount: $("cType").value === "payout" ? Number(String($("cAmount").value).replace(/[, $]/g, "")) : null,
       program: $("cProgram").value,
       issued_on: $("cDate").value || today(),
     };
   }
   function syncType() {
     const funded = $("cType").value === "funded";
-    $("cAmountLbl").textContent = funded ? "Account size ($)" : "Payout amount ($)";
-    $("cAmount").placeholder = funded ? "10000" : "300";
+    $("cAmtWrap").hidden = funded;      // amount sirf payout me
     $("cProgWrap").hidden = !funded;
   }
   let t = null;
@@ -311,15 +321,17 @@
     if (d.trader_name.length < 2 || d.trader_name.length > 60 || /[<>{}]/.test(d.trader_name)) {
       err("Trader name 2–60 characters ka hona chahiye."); return;
     }
-    if (!Number.isFinite(d.amount) || d.amount <= 0 || d.amount > 10000000) {
+    const isPayout = d.cert_type === "payout";
+    if (isPayout && (!Number.isFinite(d.amount) || d.amount <= 0 || d.amount > 10000000)) {
       err("Amount sahi daalo (sirf number)."); return;
     }
-    const label = d.cert_type === "funded" ? "Funded pass" : "Payout";
-    if (!window.confirm(`${label} certificate issue karein?\n\n${d.trader_name} — ${money(d.amount)}\n\nIssue hone ke baad ye QR se verify hoga.`)) return;
+    const label = isPayout ? "Payout" : "Funded pass";
+    const detail = isPayout ? money(d.amount) : progOf(d).short;
+    if (!window.confirm(`${label} certificate issue karein?\n\n${d.trader_name} — ${detail}\n\nIssue hone ke baad ye QR se verify hoga.`)) return;
 
     $("cGenBtn").disabled = true;
     const { data, error } = await window.CF_SB.rpc("cf_issue_certificate", {
-      p_type: d.cert_type, p_name: d.trader_name, p_amount: d.amount,
+      p_type: d.cert_type, p_name: d.trader_name, p_amount: isPayout ? d.amount : null,
       p_program: d.cert_type === "funded" ? d.program : null, p_date: d.issued_on,
     });
     $("cGenBtn").disabled = false;
@@ -368,8 +380,8 @@
     const frag = document.createDocumentFragment();
     list.forEach((r) => {
       const tr = document.createElement("tr");
-      tr.append(cell("td", r.code), cell("td", r.cert_type === "funded" ? "Funded" : "Payout"),
-        cell("td", r.trader_name), cell("td", money(r.amount)), cell("td", niceDate(r.issued_on)));
+      tr.append(cell("td", r.code), cell("td", r.cert_type === "funded" ? "Evaluation" : "Payout"),
+        cell("td", r.trader_name), cell("td", r.amount == null ? progOf(r).short : money(r.amount)), cell("td", niceDate(r.issued_on)));
       const st = cell("td"); st.append(cell("span", r.revoked ? "revoked" : "valid", "tag " + (r.revoked ? "rejected" : "approved"))); tr.append(st);
       const act = cell("td");
       const open = cell("button", "Open", "btn mini"); open.type = "button"; open.dataset.act = "open"; open.dataset.id = r.id;

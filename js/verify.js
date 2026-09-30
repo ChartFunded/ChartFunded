@@ -26,11 +26,19 @@
     if (!data.found) { status("✕ No certificate with this ID. It may be fake.", "bad"); return; }
 
     const funded = data.cert_type === "funded";
-    $("vType").textContent = funded ? "Funded trader certificate" : "Payout certificate";
+    const TYPES = {
+      "2-Step Phase 1": "Phase 1 pass certificate · 2-Step Evaluation",
+      "2-Step Phase 2": "Phase 2 pass certificate · 2-Step Evaluation",
+      "2-Step Evaluation": "Funded trader certificate · 2-Step Evaluation",
+      "Step 1 Evaluation": "Funded trader certificate · 1-Step Evaluation",
+      "Instant Funding": "Funded trader certificate · Instant Funding",
+    };
+    $("vType").textContent = funded ? (TYPES[data.program] || "Evaluation certificate") : "Payout certificate";
     $("vName").textContent = data.trader_name;
-    $("vAmtLbl").textContent = funded ? "Account size" : "Payout amount";
-    $("vAmt").textContent = money(data.amount);
-    $("vProgRow").hidden = !funded;
+    $("vAmtLbl").textContent = "Payout amount";
+    $("vAmt").textContent = data.amount == null ? "" : money(data.amount);
+    $("vAmt").parentElement.hidden = funded || data.amount == null;
+    $("vProgRow").hidden = true;   // program upar type me hi dikh jata hai
     $("vProg").textContent = data.program || "";
     $("vDate").textContent = niceDate(data.issued_on);
     $("vCode").textContent = code;

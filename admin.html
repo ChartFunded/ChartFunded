@@ -4,13 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
-  <title>Chart Funded · Whitelist admin</title>
+  <title>Chart Funded · Admin</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Saira:wdth,wght@100..125,400..800&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/algo.css">
 </head>
 <body>
   <header class="top">
@@ -18,10 +17,7 @@
       <img src="assets/logo.png" alt="" width="40" height="40">
       <span>Chart Funded admin</span>
     </a>
-    <div class="adm-nav">
-      <a class="btn ghost small" href="/algo" id="algoLink" hidden>Algo Desk</a>
-      <button type="button" class="btn ghost" id="logoutBtn" hidden>Log out</button>
-    </div>
+    <button type="button" class="btn ghost" id="logoutBtn" hidden>Log out</button>
   </header>
 
   <div class="admin-wrap">
@@ -40,43 +36,108 @@
     </form>
 
     <section id="panelView" hidden>
-      <dl class="stats">
-        <div><dt>Total</dt><dd id="stTotal">0</dd></div>
-        <div><dt>Pending</dt><dd id="stPending">0</dd></div>
-        <div><dt>Approved</dt><dd id="stApproved">0</dd></div>
-        <div><dt>Rejected</dt><dd id="stRejected">0</dd></div>
-      </dl>
-
-      <div class="toolbar">
-        <div class="field">
-          <label for="search" class="sr">Search</label>
-          <input id="search" placeholder="Search handle or wallet" spellcheck="false">
-        </div>
-        <label for="filter" class="sr">Status</label>
-        <select id="filter">
-          <option value="all">All</option>
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
-        </select>
-        <button type="button" class="btn ghost" id="reloadBtn">Reload</button>
-        <button type="button" class="btn" id="csvBtn">Export CSV</button>
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab is-on" id="tabWl" role="tab" aria-selected="true" aria-controls="wlView">Whitelist</button>
+        <button type="button" class="tab" id="tabCert" role="tab" aria-selected="false" aria-controls="certView">Certificates</button>
       </div>
-      <p class="err" id="panelErr" role="alert"></p>
 
-      <div class="panel table-scroll">
-        <table>
-          <thead>
-            <tr><th>#</th><th>X</th><th>Telegram</th><th>Discord</th><th>Wallet</th><th>Joined</th><th>Status</th><th>Action</th></tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
+      <!-- ============ WHITELIST ============ -->
+      <div id="wlView" role="tabpanel">
+        <dl class="stats">
+          <div><dt>Total</dt><dd id="stTotal">0</dd></div>
+          <div><dt>Pending</dt><dd id="stPending">0</dd></div>
+          <div><dt>Approved</dt><dd id="stApproved">0</dd></div>
+          <div><dt>Rejected</dt><dd id="stRejected">0</dd></div>
+        </dl>
+
+        <div class="toolbar">
+          <div class="field">
+            <label for="search" class="sr">Search</label>
+            <input id="search" placeholder="Search handle or wallet" spellcheck="false">
+          </div>
+          <label for="filter" class="sr">Status</label>
+          <select id="filter">
+            <option value="all">All</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <button type="button" class="btn ghost" id="reloadBtn">Reload</button>
+          <button type="button" class="btn" id="csvBtn">Export CSV</button>
+        </div>
+        <p class="err" id="panelErr" role="alert"></p>
+
+        <div class="panel table-scroll">
+          <table>
+            <thead>
+              <tr><th>#</th><th>X</th><th>Telegram</th><th>Discord</th><th>Wallet</th><th>Joined</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ============ CERTIFICATES ============ -->
+      <div id="certView" role="tabpanel" hidden>
+        <div class="cert-layout">
+          <form class="panel cert-form" id="certForm" novalidate>
+            <h2 class="panel-h">New certificate</h2>
+
+            <label class="lbl" for="cType">Type</label>
+            <select id="cType">
+              <option value="payout">Payout certificate</option>
+              <option value="funded">Funded pass certificate</option>
+            </select>
+
+            <label class="lbl" for="cName">Trader name</label>
+            <div class="field"><input id="cName" maxlength="60" placeholder="e.g. Kasfur" autocomplete="off"></div>
+
+            <label class="lbl" for="cAmount" id="cAmountLbl">Payout amount ($)</label>
+            <div class="field"><span class="prefix" aria-hidden="true">$</span><input id="cAmount" inputmode="decimal" placeholder="300" autocomplete="off"></div>
+
+            <div id="cProgWrap" hidden>
+              <label class="lbl" for="cProgram">Program</label>
+              <select id="cProgram">
+                <option value="Step 1 Evaluation">Step 1 Evaluation</option>
+                <option value="Instant Funding">Instant Funding</option>
+              </select>
+            </div>
+
+            <label class="lbl" for="cDate">Date</label>
+            <div class="field"><input id="cDate" type="date"></div>
+
+            <p class="hint">Generate karte hi certificate database me save ho jata hai aur QR se verify hota hai. Galti ho to neeche list se Revoke karo.</p>
+            <button type="submit" class="btn primary" id="cGenBtn">Generate certificate</button>
+            <p class="err" id="certErr" role="alert"></p>
+          </form>
+
+          <div class="panel cert-preview">
+            <h2 class="panel-h">Preview</h2>
+            <canvas id="certCanvas" width="1600" height="1131" aria-label="Certificate preview"></canvas>
+            <div class="cert-actions">
+              <button type="button" class="btn" id="cDownload" disabled>Download PNG</button>
+              <span class="cert-code" id="cCode"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel table-scroll cert-list">
+          <h2 class="panel-h">Issued certificates</h2>
+          <table>
+            <thead>
+              <tr><th>Code</th><th>Type</th><th>Trader</th><th>Amount</th><th>Date</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="certRows"></tbody>
+          </table>
+        </div>
       </div>
     </section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
   <script src="js/config.js"></script>
+  <script src="js/qrcode.js"></script>
   <script src="js/admin.js"></script>
+  <script src="js/certificates.js"></script>
 </body>
 </html>

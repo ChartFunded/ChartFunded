@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Verify certificate · Chart Funded</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Saira:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="" width="40" height="40">
+      <span>Chart Funded</span>
+    </a>
+  </header>
+
+  <main class="verify-wrap">
+    <section class="panel verify-card" id="vCard" aria-live="polite">
+      <p class="v-status" id="vStatus">Checking certificate…</p>
+      <div id="vBody" hidden>
+        <p class="v-type" id="vType"></p>
+        <p class="v-name" id="vName"></p>
+        <dl class="v-facts">
+          <div><dt id="vAmtLbl">Amount</dt><dd id="vAmt"></dd></div>
+          <div id="vProgRow" hidden><dt>Program</dt><dd id="vProg"></dd></div>
+          <div><dt>Issued</dt><dd id="vDate"></dd></div>
+          <div><dt>Certificate ID</dt><dd id="vCode"></dd></div>
+        </dl>
+      </div>
+      <form class="v-form" id="vForm" novalidate>
+        <label class="lbl" for="vInput">Check another certificate ID</label>
+        <div class="field">
+          <input id="vInput" maxlength="16" placeholder="16-character ID" spellcheck="false" autocapitalize="characters">
+          <button type="submit" class="btn">Verify</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/verify.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
-//  mt5-bridge — the ONLY door for the MT5 EA running on the VPS.
+//  mt5-bridge v2 — the ONLY door for the MT5 EA running on the VPS.
 //  The EA polls this endpoint (outbound HTTPS only — MT5 is never exposed).
 //
 //  Auth: header  Authorization: Bearer <BRIDGE_SECRET>  (constant-time check)
@@ -139,7 +139,12 @@ Deno.serve(async (req) => {
       }).eq("id", id);
       if (c.action === "place") {
         if (ok && num(b.ticket)) await db.from("algo_trades").update({ broker_ticket: num(b.ticket), updated_at: now() }).eq("id", c.trade_id);
-        if (!ok) await db.from("algo_trades").update({ status: "error", note: "place failed: " + String(b.error ?? "").slice(0, 120), updated_at: now() }).eq("id", c.trade_id);
+        if (!ok) {
+          const errTxt = String(b.error ?? "").slice(0, 120);
+          // price already went past the entry before the order arrived → skipped (counts as missed, not an error)
+          const missed = errTxt.startsWith("price passed");
+          await db.from("algo_trades").update({ status: missed ? "missed" : "error", note: (missed ? "" : "place failed: ") + errTxt, updated_at: now() }).eq("id", c.trade_id);
+        }
       }
       await log("ack_" + c.action, null, { id, ok, ticket: num(b.ticket) }, ok, ok ? null : String(b.error ?? "").slice(0, 200));
       return json({ ok: true });

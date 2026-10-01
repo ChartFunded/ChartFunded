@@ -57,11 +57,11 @@
       <form class="panel set-box" id="setBox" hidden novalidate>
         <div class="set-grid">
           <label>Buffer (pips)<input id="sBuf" type="number" min="0" max="50" step="0.5"></label>
-          <label>Fast Track lot<input id="sLf" type="number" min="0" max="1" step="0.01"></label>
-          <label>Talha lot<input id="sLt" type="number" min="0" max="1" step="0.01"></label>
-          <label>Max open trades<input id="sMo" type="number" min="0" max="10" step="1"></label>
+          <label>Max open orders<input id="sMo" type="number" min="0" max="10" step="1"></label>
           <label>Daily loss stop ($)<input id="sDl" type="number" min="0" step="10"></label>
         </div>
+        <p class="muted set-note">Lot is per entry. A strategy switched OFF is only logged (paper).</p>
+        <div class="set-grid" id="stratSet"></div>
         <div class="set-actions">
           <button type="submit" class="btn primary small" id="setSave">Save settings</button>
           <button type="button" class="btn ghost small" id="setCancel">Close</button>
@@ -73,8 +73,11 @@
         <label for="fStrat" class="sr">Strategy</label>
         <select id="fStrat">
           <option value="all">All strategies</option>
-          <option value="FAST">Fast Track (M30)</option>
-          <option value="TALHA">Talha Sniper (H1)</option>
+          <option value="MAHI">Mahi M3 (3m)</option>
+          <option value="M5">M5 Money Bhai (5m)</option>
+          <option value="FAST">Fast Track (15m)</option>
+          <option value="TALHA">Talha Sniper (1H)</option>
+          <option value="SHARP">Sharp Zone (4H)</option>
         </select>
         <label for="fMode" class="sr">Mode</label>
         <select id="fMode">
@@ -105,21 +108,21 @@
       <!-- per strategy -->
       <div class="panel table-scroll">
         <div class="box-head"><h2>By strategy</h2></div>
-        <table><thead><tr><th>Strategy</th><th>Trades</th><th>TP</th><th>SL</th><th>BE</th><th>Win rate</th><th>Net P&amp;L</th><th>Profit factor</th></tr></thead>
+        <table><thead><tr><th>Strategy</th><th>Setups traded</th><th>Wins</th><th>SL</th><th>Win rate</th><th>Net P&amp;L</th><th>Profit factor</th><th>Status</th></tr></thead>
           <tbody id="stratRows"></tbody></table>
       </div>
 
       <!-- open / pending -->
       <div class="panel table-scroll">
         <div class="box-head"><h2>Open &amp; pending</h2></div>
-        <table><thead><tr><th>Setup</th><th>Strat</th><th>Side</th><th>Status</th><th>Entry</th><th>SL</th><th>TP</th><th>Lots</th><th>Ticket</th><th>Created</th></tr></thead>
+        <table><thead><tr><th>Setup</th><th>Strat</th><th>Entry #</th><th>Side</th><th>Status</th><th>Entry</th><th>SL</th><th>TP</th><th>Lots</th><th>Ticket</th><th>Created</th></tr></thead>
           <tbody id="openRows"></tbody></table>
       </div>
 
       <!-- history -->
       <div class="panel table-scroll">
-        <div class="box-head"><h2>Trade history</h2><span class="muted" id="histNote"></span></div>
-        <table><thead><tr><th>Closed</th><th>Strat</th><th>Side</th><th>Result</th><th>Entry</th><th>Exit</th><th>Pips</th><th>P&amp;L</th><th>Mode</th><th>Reason</th></tr></thead>
+        <div class="box-head"><h2>Trade history (per setup)</h2><span class="muted" id="histNote"></span></div>
+        <table><thead><tr><th>Closed</th><th>Strat</th><th>Side</th><th>Result</th><th>Entries</th><th>Pips</th><th>P&amp;L</th><th>Mode</th><th>Note</th></tr></thead>
           <tbody id="histRows"></tbody></table>
       </div>
 

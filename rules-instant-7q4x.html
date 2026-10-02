@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Instant Funding Rules · Chart Funded</title>
+  <meta name="theme-color" content="#00153A">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,400..800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/rules.css">
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="brand" href="/">
+      <img src="assets/logo.png" alt="" width="40" height="40">
+      <span>Chart Funded</span>
+    </a>
+    <span class="rp-tag">Instant Funding</span>
+  </header>
+
+  <main class="rp">
+    <section class="rp-hero">
+      <p class="pill"><span class="dot" aria-hidden="true"></span>Private rules page</p>
+      <h1>Instant Funding rules</h1>
+      <p class="lede">Spin the wheel to pick your account size. Every limit updates to match it.</p>
+    </section>
+
+    <section class="rp-main">
+      <div class="picker">
+        <p class="picker-label">Account size</p>
+        <div class="wheel-wrap">
+          <button type="button" class="w-btn" id="wUp" aria-label="Smaller account">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="wheel" id="wheel" role="listbox" aria-label="Account size" tabindex="0">
+            <div class="w-item" role="option" data-size="5000">$5K</div>
+            <div class="w-item" role="option" data-size="10000">$10K</div>
+            <div class="w-item" role="option" data-size="15000">$15K</div>
+            <div class="w-item" role="option" data-size="20000">$20K</div>
+            <div class="w-item" role="option" data-size="25000">$25K</div>
+            <div class="w-item" role="option" data-size="50000">$50K</div>
+          </div>
+          <div class="w-lens" aria-hidden="true"></div>
+          <button type="button" class="w-btn" id="wDown" aria-label="Larger account">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="picker-hint">Max allocation $50,000</p>
+      </div>
+
+      <div class="board">
+        <div class="board-head">
+          <p class="bh-label">Your account</p>
+          <p class="bh-size"><span class="flap" id="vSize">$5,000</span></p>
+        </div>
+
+        <div class="cards">
+          <article class="rc">
+            <div class="rc-top"><span class="rc-name">Max drawdown</span><span class="rc-pct">4%</span></div>
+            <p class="rc-val"><span class="flap" id="vMax">$200</span></p>
+            <p class="rc-sub">Equity can't go below <b id="vFloor">$4,800</b></p>
+          </article>
+          <article class="rc">
+            <div class="rc-top"><span class="rc-name">Daily drawdown</span><span class="rc-pct">1.5%</span></div>
+            <p class="rc-val"><span class="flap" id="vDaily">$75</span></p>
+            <p class="rc-sub">Measured from the day's starting balance</p>
+          </article>
+          <article class="rc">
+            <div class="rc-top"><span class="rc-name">Risk per trade</span><span class="rc-pct">0.5%</span></div>
+            <p class="rc-val"><span class="flap" id="vRisk">$25</span></p>
+            <p class="rc-sub">Max loss allowed on any single trade</p>
+          </article>
+          <article class="rc">
+            <div class="rc-top"><span class="rc-name">Buffer</span><span class="rc-pct">3%</span></div>
+            <p class="rc-val"><span class="flap" id="vBuffer">$150</span></p>
+            <p class="rc-sub">Payouts start once this profit is built</p>
+          </article>
+          <article class="rc wide">
+            <div class="rc-top"><span class="rc-name">Profit split</span><span class="rc-pct">You / Us</span></div>
+            <div class="split">
+              <div class="split-step"><span class="split-num">50/50</span><span class="split-cap">Starting split</span></div>
+              <div class="split-bar" aria-hidden="true"><i></i></div>
+              <div class="split-step"><span class="split-num hi">70/30</span><span class="split-cap">Up to 70% to you</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="lock-rule">
+      <h2>How the max drawdown locks</h2>
+      <p class="sub">Your max drawdown starts at 4%. Once you're 2% up, it locks at 2% below your starting balance and stays there. From then on, 2% of that room is your profit and 2% is our risk.</p>
+      <ol class="lock-steps">
+        <li>
+          <span class="ls-no">1</span>
+          <p class="ls-title">You start</p>
+          <p class="ls-val"><span class="flap" id="lStart">$5,000</span></p>
+          <p class="ls-sub">Floor at <b id="lFloor1">$4,800</b> (4% below)</p>
+        </li>
+        <li>
+          <span class="ls-no">2</span>
+          <p class="ls-title">You reach +2%</p>
+          <p class="ls-val"><span class="flap" id="lPlus">$5,100</span></p>
+          <p class="ls-sub">Balance hits the lock level</p>
+        </li>
+        <li class="locked">
+          <span class="ls-no">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.75" y="10.25" width="14.5" height="10.25" rx="2.6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.1 10.25V7.6a3.9 3.9 0 0 1 7.8 0v2.65" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <p class="ls-title">Floor locks</p>
+          <p class="ls-val"><span class="flap" id="lFloor2">$4,900</span></p>
+          <p class="ls-sub">2% below start, for good</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="fixed">
+      <h2>Rules on every account</h2>
+      <ul class="fx">
+        <li class="no"><span class="fx-name">News trading</span><span class="fx-val">Not allowed</span></li>
+        <li class="no"><span class="fx-name">Hedging</span><span class="fx-val">Not allowed</span></li>
+        <li class="yes"><span class="fx-name">Consistency rule</span><span class="fx-val">None</span></li>
+        <li class="yes"><span class="fx-name">Challenge fees</span><span class="fx-val">None</span></li>
+        <li class="yes"><span class="fx-name">Withdrawals</span><span class="fx-val">Anytime, after buffer</span></li>
+        <li><span class="fx-name">Max allocation</span><span class="fx-val">$50,000</span></li>
+      </ul>
+    </section>
+
+    <section class="notes">
+      <h2>Notes</h2>
+      <ul>
+        <li>A 3% buffer is required on every account. Payouts start once it's built.</li>
+        <li>The buffer is yours. You can withdraw your buffer amount.</li>
+        <li>Max risk per trade is 0.5% of your account size.</li>
+        <li>Profit split starts at 50/50 and grows up to 70/30, with 70% going to you.</li>
+      </ul>
+      <p class="tc">Terms and conditions apply.</p>
+    </section>
+  </main>
+
+  <script src="js/rules.js"></script>
+</body>
+</html>

@@ -41,7 +41,6 @@
         <button type="button" class="tab" id="tabCert" role="tab" aria-selected="false" aria-controls="certView">Certificates</button>
       </div>
 
-      <!-- ============ WHITELIST ============ -->
       <div id="wlView" role="tabpanel">
         <dl class="stats">
           <div><dt>Total</dt><dd id="stTotal">0</dd></div>
@@ -77,7 +76,6 @@
         </div>
       </div>
 
-      <!-- ============ CERTIFICATES ============ -->
       <div id="certView" role="tabpanel" hidden>
         <div class="cert-layout">
           <form class="panel cert-form" id="certForm" novalidate>
@@ -100,17 +98,17 @@
             <div id="cProgWrap" hidden>
               <label class="lbl" for="cProgram">Evaluation stage</label>
               <select id="cProgram">
-                <option value="Step 1 Evaluation">1-Step Evaluation – Pass</option>
-                <option value="2-Step Phase 1">2-Step Evaluation – Phase 1 Pass</option>
-                <option value="2-Step Phase 2">2-Step Evaluation – Phase 2 Pass</option>
-                <option value="2-Step Evaluation">2-Step Evaluation – Pass (Funded)</option>
+                <option value="Step 1 Evaluation">1-Step Evaluation - Pass</option>
+                <option value="2-Step Phase 1">2-Step Evaluation - Phase 1 Pass</option>
+                <option value="2-Step Phase 2">2-Step Evaluation - Phase 2 Pass</option>
+                <option value="2-Step Evaluation">2-Step Evaluation - Pass (Funded)</option>
               </select>
             </div>
 
             <label class="lbl" for="cDate">Date</label>
             <div class="field"><input id="cDate" type="date"></div>
 
-            <p class="hint">Generate karte hi certificate database me save ho jata hai aur QR se verify hota hai. Galti ho to neeche list se Revoke karo.</p>
+            <p class="hint">Generating saves the certificate and makes its QR code verifiable. If you make a mistake, revoke it from the list below.</p>
             <button type="submit" class="btn primary" id="cGenBtn">Generate certificate</button>
             <p class="err" id="certErr" role="alert"></p>
           </form>
